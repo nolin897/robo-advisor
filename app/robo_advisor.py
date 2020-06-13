@@ -23,9 +23,14 @@ last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 
 now = datetime.datetime.now()
 
-latest_close = parsed_response["Time Series (Daily)"]["2020-06-12"]["4. close"]
-
 # breakpoint()
+
+tsd = parsed_response["Time Series (Daily)"]
+dates = list(tsd.keys())
+latest_day = dates[0]
+latest_close = tsd[latest_day]["4. close"]
+
+
 
 # 
 # INFO OUTPUTS
