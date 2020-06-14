@@ -31,7 +31,7 @@ latest_day = dates[0]
 latest_close = tsd[latest_day]["4. close"]
 
 
-# get high price from each day and put them all into a list
+# calculate recent high price
 high_prices = []
 
 for date in dates:
@@ -40,6 +40,7 @@ for date in dates:
 
 recent_high = max(high_prices)
 
+# calculate recent low price
 low_prices = []
 
 for date in dates:
@@ -47,6 +48,19 @@ for date in dates:
     low_prices.append(float(low_price))
 
 recent_low = min(low_prices)
+
+# Provide recommendation based on a trading rule of a 100 bps difference from the previous close
+previous_day = dates[1]
+previous_close = tsd[previous_day]["4. close"]
+if float(latest_close) > 1.01*float(previous_close):
+    rec = "BUY"
+    rec_reason = "Price increased more than 100 bps"
+elif float(latest_close) < 0.99*float(previous_close):
+    rec = "SELL"
+    rec_reason = "Price declined more than 100 bps"
+else:
+    rec = "HOLD"
+    rec_reason = "Price within 100 bps of the previous close"
 
 # 
 # INFO OUTPUTS
@@ -63,8 +77,10 @@ print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
-print("RECOMMENDATION: BUY!")
-print("RECOMMENDATION REASON: TODO")
+print(f"RECOMMENDATION: {rec}!")
+print(f"RECOMMENDATION REASON: {rec_reason}")
+print("-------------------------")
+print("WRITING DATA TO CSV")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
