@@ -1,8 +1,11 @@
 # app/robo_advisor.py
 
-import requests
-import json #> Import as dictionary
+import csv
 import datetime
+import json #> Import as dictionary
+import os
+
+import requests
 
 def to_usd(my_price):
     return f"${my_price:,.2f}"
@@ -66,6 +69,18 @@ else:
 # INFO OUTPUTS
 # 
 
+# csv_file_path = "data/prices.csv" # a relative filepath
+
+csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
+
+with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
+    writer = csv.DictWriter(csv_file, fieldnames=["city", "name"])
+    writer.writeheader() # uses fieldnames set above
+    writer.writerow({"city": "New York", "name": "Yankees"})
+    writer.writerow({"city": "New York", "name": "Mets"})
+    writer.writerow({"city": "Boston", "name": "Red Sox"})
+    writer.writerow({"city": "New Haven", "name": "Ravens"})
+
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
 print("-------------------------")
@@ -80,7 +95,9 @@ print("-------------------------")
 print(f"RECOMMENDATION: {rec}!")
 print(f"RECOMMENDATION REASON: {rec_reason}")
 print("-------------------------")
-print("WRITING DATA TO CSV")
+print(f"WRITING DATA TO CSV: {csv_file_path}...")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
+
+
