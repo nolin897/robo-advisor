@@ -25,4 +25,4 @@ NB: The following steps assume you have cloned this repo to your Github desktop 
     SELL if the stocks's price decreases more than 100 bps from the previous close.
     HOLD if the stock's price remains within 100 bps of the previous close.
 
-7) For additional analysis, consult the csv files created for each selected stock upon running the script. These will populate in the data subfolder of this repo.    
+7) For additional analysis, consult the time series that this script generates via Plotly, or view the raw data on each of the csv files created for your selected stocks. These csv files will populate in the data subfolder of this repo.    
