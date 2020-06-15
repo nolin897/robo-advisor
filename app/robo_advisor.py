@@ -4,7 +4,9 @@
 import csv
 import datetime
 import json #> Import as dictionary
+import math
 import os
+import statistics
 
 # Import Packages
 from dotenv import load_dotenv
@@ -124,14 +126,37 @@ for symbol in selected_symbols:
     
     plotly.offline.plot({
     "data": [go.Scatter(x=dates, y=closing_prices)],
-    "layout": go.Layout(title=f"{symbol} Time Series")
+    "layout": go.Layout(title=f"{symbol.upper()} Time Series")
     }, auto_open=True)
     
+    # FINANCIAL CALCULATIONS BASED ON PRIOR COURSEWORK
+
+    # ANNUALIZED EXPECTED RETURN, ANNUALIZED VOLATILITY, & SHARPE RATIO
     
+    stock_returns = []
+    for date in dates:
+        if dates.index(date)+1 < len(dates): # I googled how to look at the index of a list and found the following link https://www.programiz.com/python-programming/methods/list/index ; I corroborated this information using the course repo https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/datatypes/lists.md
+            latest_day_dynamic = dates[dates.index(date)]
+            latest_close_dynamic = tsd[latest_day_dynamic]["4. close"]
+            previous_day_dynamic = dates[dates.index(date)+1]
+            previous_close_dynamic = tsd[previous_day_dynamic]["4. close"]
+            stock_return = (float(latest_close_dynamic)-float(previous_close_dynamic))/float(previous_close_dynamic)
+            stock_returns.append(stock_return)
+        else:
+            break    
+
+    daily_expected_return = statistics.mean(stock_returns)
+    annualized_expected_return = 252*daily_expected_return
+    daily_volatility = statistics.stdev(stock_returns)
+    annualized_volatility = math.sqrt(252)*daily_volatility
+
+    risk_free_rate = 0.18 #from https://www.treasury.gov/resource-center/data-chart-center/interest-rates/pages/TextView.aspx?data=billrates        
+    sharpe_ratio = (annualized_expected_return - risk_free_rate)/annualized_volatility
+
     print("------------------------------------------------------------------------")
     print("$+$+$+$+$+$+$+$+YOUR$+$+$+INVESTMENT$+$+$+RECOMMENDATION$+$+$+$+$+$+$+$+")
     print("------------------------------------------------------------------------")
-    print(f"SELECTED SYMBOL: {symbol}")
+    print(f"SELECTED SYMBOL: {symbol.upper()}")
     print("-------------------------")
     print("REQUESTING STOCK MARKET DATA...")
     print("REQUEST AT: ", now.strftime("%Y-%m-%d %I:%M%p"))
@@ -140,6 +165,9 @@ for symbol in selected_symbols:
     print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
     print(f"RECENT HIGH: {to_usd(float(recent_high))}")
     print(f"RECENT LOW: {to_usd(float(recent_low))}")
+    print(f"EXPECTED RETURN: {annualized_expected_return*100:,.2f}%")
+    print(f"VOLATILITY: {annualized_volatility*100:,.2f}%")
+    print(f"SHARPE RATIO: {sharpe_ratio:,.2f}")
     print("-------------------------")
     print(f"RECOMMENDATION: {rec}!")
     print(f"RECOMMENDATION REASON: {rec_reason}")

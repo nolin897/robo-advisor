@@ -22,7 +22,16 @@ NB: The following steps assume you have cloned this repo to your Github desktop 
 6) Receive investment recommendations based on the following rule:
 
     BUY if the stock's price increases more than 100 bps from the previous close.
+    
     SELL if the stocks's price decreases more than 100 bps from the previous close.
+    
     HOLD if the stock's price remains within 100 bps of the previous close.
 
-7) For additional analysis, consult the time series that this script generates via Plotly, or view the raw data on each of the csv files created for your selected stocks. These csv files will populate in the data subfolder of this repo.    
+7) For additional analysis, consult 
+        1) The additional financial information provided, including:
+                a) Annualized expected return
+                b) Annualized volatility
+                c) Sharpe Ratio given by the following formula:
+                        (Exp stock return - Risk free treasury rate) / standard deviation of stock returns
+        2) The time series that this script generates via Plotly 
+        3) The raw data on each of the csv files created for your selected stocks which will populate in the data subfolder of this repo.    
