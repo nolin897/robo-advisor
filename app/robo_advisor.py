@@ -154,7 +154,7 @@ for symbol in selected_symbols:
     sharpe_ratio = (annualized_expected_return - risk_free_rate)/annualized_volatility
 
     print("------------------------------------------------------------------------")
-    print("$+$+$+$+$+$+$+$+YOUR$+$+$+INVESTMENT$+$+$+RECOMMENDATION$+$+$+$+$+$+$+$+")
+    print("$+$+$+$+$+$+$+$+YOUR+$+$+INVESTMENT+$+$+RECOMMENDATION+$+$+$+$+$+$+$+")
     print("------------------------------------------------------------------------")
     print(f"SELECTED SYMBOL: {symbol.upper()}")
     print("-------------------------")
