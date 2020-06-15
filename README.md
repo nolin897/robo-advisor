@@ -1,52 +1,28 @@
 # robo-advisor
 
-I) PROJECT SETUP
+TO RUN THE ROBO ADVISOR:
 
-1) Create a new repo called robo-advisor with a Readme.md file and a Python .gitignore file, as well as a license of your choosing.
+NB: The following steps assume you have cloned this repo to your Github desktop suite from https://github.com/nolin897/robo-advisor
 
-2) Clone the repo to your Github desktop suite
+1) Set up a .env file in your cloned repo with your secret API key set equal to the environment variable ALPHAVANTAGE_API_KEY that is referenced in the script. If you haven't already, get your secret API key from https://www.alphavantage.co/support/#api-key    
 
-3) Create a sub-folder calld "app" within the "robo-advisor" folder and create a file called "robo_advisor.py" in this "app" folder.
-
-4) Copy and paste the following into "robo_advisor.py":
-
-        # app/robo_advisor.py
-
-        print("-------------------------")
-        print("SELECTED SYMBOL: XYZ")
-        print("-------------------------")
-        print("REQUESTING STOCK MARKET DATA...")
-        print("REQUEST AT: 2018-02-20 02:00pm")
-        print("-------------------------")
-        print("LATEST DAY: 2018-02-20")
-        print("LATEST CLOSE: $100,000.00")
-        print("RECENT HIGH: $101,000.00")
-        print("RECENT LOW: $99,000.00")
-        print("-------------------------")
-        print("RECOMMENDATION: BUY!")
-        print("RECOMMENDATION REASON: TODO")
-        print("-------------------------")
-        print("HAPPY INVESTING!")
-        print("-------------------------")
-
-5) Create a file called "requirements.txt" in the "robo-advisor" folder and enter the following package information:
-
-        requests
-        python-dotenv
-
-6) Set up a virtual environment:
+2) Set up a virtual environment:
 
         conda create -n stocks-env python=3.7 # (first time only)
         conda activate stocks-env
 
-7) Install the requirements via your requirements.txt file:
+3) Install the package requirements via the requirements.txt file:
 
         pip install -r requirements.txt
 
-8) Run the python script via the apps folder:
+4) Run the script via apps/robo_advisor.py
 
-        python app/robo_advisor.py
+5) Enter desired stock symbols and enter "DONE" or "done" when finished.
 
-9) Set up a .env file with your secret API key set equal to the environment variable named ALPHAVANTAGE_API_KEY     
+6) Receive investment recommendations based on the following rule:
 
-10) Install Requests package via pip
+    BUY if the stock's price increases more than 100 bps from the previous close.
+    SELL if the stocks's price decreases more than 100 bps from the previous close.
+    HOLD if the stock's price remains within 100 bps of the previous close.
+
+7) For additional analysis, consult the csv files created for each selected stock upon running the script. These will populate in the data subfolder of this repo.    
