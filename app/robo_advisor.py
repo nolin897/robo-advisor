@@ -139,7 +139,7 @@ try: # Found try/except Error syntax via https://www.jquery-az.com/python-keyerr
                 break    
         #statistics module and methods via https://docs.python.org/3/library/statistics.html#module-statistics        
         daily_expected_return = statistics.mean(stock_returns)
-        annualized_expected_return = 252*daily_expected_return
+        annualized_expected_return = 252*daily_expected_return #based on a 252-day trading year (excluding holidays and weekends)
         daily_volatility = statistics.stdev(stock_returns)
         annualized_volatility = math.sqrt(252)*daily_volatility
 
